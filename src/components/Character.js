@@ -1,36 +1,22 @@
 // Write your Character component here
-import React, {useState} from 'react'
+import React from 'react'
 
-const Character = (props) => {
-    const character = props
-
-
-    return (
+export default function Character (props) {
+    const {bold, info, action} = props
+     return (
         <div>
-            {
-                character.character.map(character =>{
-                    return ( 
-                        <div>
-                            <div>
-                                <h2>Name: {character.name}</h2>
-                        
-                            </div>
-                            {/* <div>
-                                <P>Gender: {character.gender != 'n/a' ? character.gender : 'unkown'}</P>
-                                <P>Birth year: {character.birth_year}</P>
-                            </div> */}
-                        </div>
-                            
-                    );
-                })
-            }
+            {info.name}
+            <button onClick={() => action(info.id)}>
+            ▼
+            </button>
+            
     
     
-        </div>
+       </div>
     
     )
     
 }
 
 
-export default Character
+// export default Character

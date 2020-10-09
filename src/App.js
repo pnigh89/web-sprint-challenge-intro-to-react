@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './App.css';
 import Character from './components/Character'
+import Details from './components/Details'
 
-const App = () => {
+export default function App() {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
 
@@ -11,7 +12,16 @@ const App = () => {
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
 
-  const [character, getCharacter] = useState();
+  const [character, getCharacter] = useState([]);
+  const [characterId, setCharacterId] = useState('1')
+
+  const openDetails = id => {
+    setCharacterId(id)
+  }
+
+  const closeDetails = () => {
+    setCharacterId(null)
+  }
 
   useEffect(()=>{
     axios.get('https://rickandmortyapi.com/api/character/[1,2,3,4,5]')
@@ -30,9 +40,23 @@ const App = () => {
   return (
     <div className="App">
       <h1 className="Header">Characters</h1>
-      <Character character={character} />
+      {/* {
+        character.map(ch => {
+          // return <div name = {ch.name} key={ch.id} species={ch.species} />
+        })
+
+      }
+      <Character character={character} key={character.id} /> */}
+      {
+        character.map(fr => {
+          return <Character key={fr.id} info={fr} action={openDetails} />
+        })
+      }
+      {
+        characterId && <Details chId={characterId} close={closeDetails} />
+      }
     </div>
   );
 }
 
-export default App;
+// export default App;
